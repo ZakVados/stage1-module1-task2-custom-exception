@@ -5,7 +5,10 @@ public class StudentManager {
 
   private static final long[] IDs = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
 
-  public Student find(long studentID) {
+  public Student find(long studentID) throws StudentNotFoundException {
+    if (studentID > 10 || studentID == 0) {
+      throw new StudentNotFoundException("Could not find student with ID " + studentID);
+    }
     return Student.getValueOf(studentID);
   }
 
@@ -17,5 +20,12 @@ public class StudentManager {
       System.out.println("Student name " + student.getName());
     }
 
+  }
+
+  public class StudentNotFoundException extends IllegalArgumentException {
+
+    public StudentNotFoundException(String message) {
+      super(message);
+    }
   }
 }
